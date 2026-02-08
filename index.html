@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator | BY SHAMSHAD</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container">
+<div class="Calculator">
+<h1>JavaScript<br><span>Age Calculator </h1></span>
+<div class="input-box">
+<input type="date" id="date">
+<button id="btn">Calculate</button>
+
+<p id="result"></p>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<script>
+const userInput = document.getElementById("date");
+const result = document.getElementById("result");
+const btn = document.getElementById("btn");
+
+// block future dates
+userInput.max = new Date().toISOString().split("T")[0];
+
+btn.addEventListener("click", () => {
+    if (userInput.value === "") {
+        result.innerText = "Please select your birth date";
+        return;
+    }
+
+    const birthDate = new Date(userInput.value);
+    const today = new Date();
+
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
+
+    if (days < 0) {
+        months--;
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += lastMonth.getDate();
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    result.innerText = `You are ${years} years, ${months} months, ${days} days old`;
+});
+
+
+</script>
+</body>
+</html>
